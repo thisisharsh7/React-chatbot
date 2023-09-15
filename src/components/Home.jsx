@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import logo from '../assets/logo.svg'
 
 
-
+// this is the 2nd page i.e where student interacts with chatbot
 export default function Home() {
     const dispatch = useDispatch();
     const unroll = () => {

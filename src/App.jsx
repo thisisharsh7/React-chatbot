@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Detail from "./components/Detail"
 
+//this is the main file for routing , all our route is protected
 
 function App() {
   const { register, detail } = useSelector((state) => state.checker)

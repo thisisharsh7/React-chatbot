@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-
+//this is redux folder 
 
 const nameCapital = (naam) => {
     return naam.charAt(0).toUpperCase() + naam.slice(1);

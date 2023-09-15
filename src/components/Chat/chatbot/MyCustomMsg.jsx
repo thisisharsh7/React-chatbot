@@ -6,8 +6,9 @@ import { useRef } from "react"
 
 export default function MyCustomMsg(props) {
     const ref = useRef(null);
-    const initialAction = () => {
+    const initialAction = (e) => {
         props.actions.gotItMsg()
+        e.target.setAttribute("disabled", true);
         ref.current.classList.remove("border-gray-400", "text-gray-500", "bg-white");
         ref.current.classList.add("text-white", "bg-[#0000ff]", "border-[#0000ff]")
     }

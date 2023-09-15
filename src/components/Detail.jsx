@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { ENROLL } from "../states/reducers";
 import { Icon } from '@iconify/react';
 import logo from '../assets/logo.svg'
-
+//this is the last page i.e 3rd page
 
 export default function Detail() {
   const dispatch = useDispatch();

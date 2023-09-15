@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { ENROLL } from "../states/reducers";
 
 
-
+//this is the intro page
 export default function Enter() {
     const dispatch = useDispatch()
     const Enroll = () => {

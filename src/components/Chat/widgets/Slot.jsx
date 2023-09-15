@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from "react";
 
 
 
-const styleBtn = "border-gray-400 text-gray-500 text-sm font-medium bg-white  border-2 px-1 py-1 rounded-md hover:border-blue-500  shadow-md"
+const styleBtn = "border-gray-400 text-gray-500 text-sm font-medium bg-white  border-2 px-1 py-1 rounded-md hover:border-blue-500  shadow-md";
+const DAYs = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHs = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const today = new Date()
+const di = today.getDay();
+const DATEs = today.getDate();
+const mi = today.getMonth();
 
 export default function Slot(props) {
     const [slot, setSlot] = useState({
@@ -11,37 +17,56 @@ export default function Slot(props) {
         date: "",
         time: "",
     })
+    const MorningRef = useRef(null);
+    const NoonRef = useRef(null);
 
+    const disableAll = (p, n) => {
+
+        for (let i = 0; i < n; i++) {
+            p[i].setAttribute("disabled", true);
+        }
+    }
 
 
     const handleClick = (e) => {
+
         let p = "";
         let el = e.target.parentElement.id;
         let k = "";
+        let n = "";
         if (el !== "morning" && el !== "noon") {
             p = e.target.parentElement.parentElement.children;
             el = e.target.parentElement;
             k = DaDate;
+            n = p.length;
 
         } else {
             p = e.target.parentElement.children;
             el = e.target
+            n = p.length;
             if (e.target.parentElement.id === "morning") {
                 k = Morning;
+                disableAll(NoonRef.current.children, n);
             } else {
                 k = Noon;
+                disableAll(MorningRef.current.children, n);
             }
         }
-        console.log('harsh')
-        for (let i = 0; i < p.length; i++) {
+        for (let i = 0; i < n; i++) {
             if (p[i].id === el.id) {
                 p[i].classList.remove("border-gray-500", "text-gray-200", "bg-white");
                 p[i].classList.add("text-white", "bg-[#0000ff]", "border-[#0000ff]");
-                k[i].hadler();
+
+                if (k === DaDate) {
+                    setSlot({ ...slot, date: DaDate[i].date, day: DaDate[i].day })
+                } else {
+                    k[i].hadler();
+                }
             } else {
                 p[i].classList.add("border-gray-500", "text-gray-200", "bg-white");
                 p[i].classList.remove("text-white", "bg-[#0000ff]", "border-[#0000ff]");
             }
+            p[i].setAttribute("disabled", true);
         }
 
     }
@@ -50,23 +75,18 @@ export default function Slot(props) {
 
     const DaDate = [
         {
-            date: '13 SEP',
-            day: 'WED',
-            hadler: () => { setSlot({ ...slot, date: '5 MAY', day: "THU" }) },
+            date: (DATEs + 0) + " " + MONTHs[mi],
+            day: DAYs[di],
             id: "date1"
         },
         {
-            date: '14 SEP',
-            day: 'THU',
-
-            hadler: () => { setSlot({ ...slot, date: '5 MAY', day: "THU" }) },
+            date: (DATEs + 1) + " " + MONTHs[mi],
+            day: DAYs[di + 1],
             id: "date2"
         },
         {
-            date: '15 SEP',
-            day: 'FRI',
-
-            hadler: () => { setSlot({ ...slot, date: '5 MAY', day: "THU" }) },
+            date: (DATEs + 2) + " " + MONTHs[mi],
+            day: DAYs[0],
             id: "date3"
         }
     ]
@@ -160,13 +180,13 @@ export default function Slot(props) {
 
             <div className="w-full flex flex-col gap-3 font-medium">
                 <p className="text-gray-500 ">Morning</p>
-                <div className="flex justify-between " id="morning">
+                <div className="flex justify-between " id="morning" ref={MorningRef}>
                     {buttonsMorning}
                 </div>
             </div>
             <div className="w-full flex flex-col gap-3 font-medium" id="noon">
                 <p className="text-gray-500 ">Noon</p>
-                <div className="flex justify-between" id="noon">
+                <div className="flex justify-between" id="noon" ref={NoonRef}>
                     {buttonsNoon}
                 </div>
             </div>

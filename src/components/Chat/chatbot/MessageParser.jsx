@@ -1,19 +1,35 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AGE, NAME } from '../../../states/reducers';
 
 const MessageParser = ({ children, actions }) => {
   const dispatch = useDispatch();
+  const { name } = useSelector((state) => state.checker);
   const parse = (message) => {
-    if (message.length > 3 && typeof (message) === "string") {
-      dispatch(NAME(message));
-      actions.enterAge();
+    if (name.length == 0) {
+      if (!message.match(/\d/)) {
+        if (message.length > 2) {
+          dispatch(NAME(message));
+          actions.enterAge();
+        } else {
+          actions.customResponse('Name is too short.');
+        }
+      } else {
+
+        actions.customResponse('Name must include letters.');
+      }
+
+    } else {
+      if (Number(message)) {
+        dispatch(AGE(message));
+        actions.thankMsg();
+      } else {
+        actions.customResponse('Age must include digits.');
+      }
 
     }
-    if (message.includes("18")) {
-      dispatch(AGE(message));
-      actions.thankMsg();
-    }
+
+
   };
 
   return (

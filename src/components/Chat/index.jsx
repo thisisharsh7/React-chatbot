@@ -4,7 +4,7 @@ import MessageParser from "./chatbot/MessageParser";
 import ActionProvider from "./chatbot/ActionProvider";
 import './index.css';
 import 'react-chatbot-kit/build/main.css';
-
+//this is the chatbot confrigutation file
 
 
 export default function Chat() {

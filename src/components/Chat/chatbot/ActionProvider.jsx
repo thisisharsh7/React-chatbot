@@ -63,6 +63,13 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     });
     upadateState(botMessage);
   }
+  const customResponse = (a) => {
+    const botMessage = createChatBotMessage(a, {
+      withAvatar: false,
+      delay: 300,
+    });
+    upadateState(botMessage);
+  }
 
   return (
     <div>
@@ -72,7 +79,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             gotItMsg,
             afterSlotMsg,
             enterAge,
-            thankMsg
+            thankMsg,
+            customResponse
           },
         });
       })}
