@@ -4,6 +4,7 @@ import Home from "./components/Home"
 import { Routes, Route, Navigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Detail from "./components/Detail"
+import NotFound from "./NotFound"
 
 //this is the main file for routing , all our route is protected
 
@@ -29,6 +30,8 @@ function App() {
                 (register)
                   ?
                   <Navigate to="/" /> : <Navigate to="/login" />} exact />
+                   <Route path="*" element={<NotFound />}
+            />
           </Routes>
         </div>
       </div>
